@@ -51,10 +51,13 @@ const title = data.title;
 const description = data.description;
 
 const detailTitle = document.getElementById('detail-title');
+const productPrice = document.getElementById('product-price');
 const detailDescription = document.getElementById('detail-description');
 
+
 detailTitle.innerText = title;
-detailDescription.innerText = description;
+productPrice.innerText = `Price: $ ${prodPrice}`;
+detailDescription.innerText = `Description: ${description}`;
 }
 
 
