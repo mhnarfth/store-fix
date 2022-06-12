@@ -8,6 +8,8 @@ const data = [{ "id": 1, "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
+    globalThis.prodId = product.id;
+    globalThis.prodPrice = product.price;
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
@@ -19,7 +21,7 @@ const showProducts = (products) => {
       <p>Category: ${product.category}</p>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <button type="button" onclick="details(${product.id})" id="details-btn" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -33,6 +35,29 @@ const addToCart = (id, price) => {
   document.getElementById("total-Products").innerText = count;
   updateTotal();
 };
+const details = (id) => {
+  fetch('https://fakestoreapi.com/products/'+id)
+  .then(res=>res.json())
+  .then(singleData=> loadSingleItem(singleData))
+}
+const loadSingleItem = (data) => {
+  
+const title = data.title;
+const description = data.description;
+
+const detailTitle = document.getElementById('detail-title');
+const detailDescription = document.getElementById('detail-description');
+
+detailTitle.innerText = title;
+detailDescription.innerText = description;
+}
+
+
+const modalAddToCart = document.getElementById('modal-add-to-cart');
+modalAddToCart.addEventListener("click", function(){ 
+  addToCart(prodId, prodPrice);
+});
+
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
