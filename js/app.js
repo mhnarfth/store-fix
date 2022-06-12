@@ -8,8 +8,7 @@ const data = [{ "id": 1, "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    globalThis.prodId = product.id;
-    globalThis.prodPrice = product.price;
+    
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
@@ -41,7 +40,13 @@ const details = (id) => {
   .then(singleData=> loadSingleItem(singleData))
 }
 const loadSingleItem = (data) => {
-  
+
+// declaring global variable for passing price and id to the modal
+
+globalThis.prodId = data.id;
+globalThis.prodPrice = data.price;
+
+
 const title = data.title;
 const description = data.description;
 
