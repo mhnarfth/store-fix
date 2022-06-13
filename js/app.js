@@ -35,10 +35,20 @@ const addToCart = (id, price) => {
   updateTotal();
 };
 const details = (id) => {
+
+globalThis.detailTitle = document.getElementById('detail-title');
+globalThis.productPrice = document.getElementById('product-price');
+globalThis.detailDescription = document.getElementById('detail-description');
+
+detailTitle.setInnerText = "";
+productPrice.setInnerText = "";
+detailDescription.setInnerText = "";
+
   fetch('https://fakestoreapi.com/products/'+id)
   .then(res=>res.json())
   .then(singleData=> loadSingleItem(singleData))
-}
+};
+
 const loadSingleItem = (data) => {
 
 // declaring global variable for passing price and id to the modal
@@ -46,14 +56,8 @@ const loadSingleItem = (data) => {
 globalThis.prodId = data.id;
 globalThis.prodPrice = data.price;
 
-
 const title = data.title;
 const description = data.description;
-
-const detailTitle = document.getElementById('detail-title');
-const productPrice = document.getElementById('product-price');
-const detailDescription = document.getElementById('detail-description');
-
 
 detailTitle.innerText = title;
 productPrice.innerText = `Price: $ ${prodPrice}`;
@@ -65,6 +69,7 @@ const modalAddToCart = document.getElementById('modal-add-to-cart');
 modalAddToCart.addEventListener("click", function(){ 
   addToCart(prodId, prodPrice);
 });
+
 
 
 const getInputValue = (id) => {
@@ -123,3 +128,13 @@ const searchItem = () => {
   showProducts(specificItems);
 
 }
+
+//implementing search if pressing Enter is pressed
+
+const searchInputField = document.getElementById('search-input-field');
+searchInputField.addEventListener('keypress', function (event){
+  if (event.key === "Enter") {
+    searchItem();
+  }
+
+});
